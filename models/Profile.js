@@ -18,6 +18,9 @@ const ProfileSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    bio: {
+        type: String,
+    },
     skils: {
         type: [String],
     },
@@ -99,5 +102,11 @@ const ProfileSchema = mongoose.Schema({
         instagram: {
             type: String,
         },
+    },
+    date: {
+        type: Date,
+        default: Date.now,
     }
 });
+
+module.exports = Profile = mongoose.model('profile', ProfileSchema);
