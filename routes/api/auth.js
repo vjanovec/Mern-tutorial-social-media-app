@@ -9,7 +9,7 @@ const config = require('config');
 const User = require('../../models/User');
 
 // @route   GET api/auth
-// @desc    Test route
+// @desc    Finds user by token => user id (auth) => user object
 // @access  PUBLIC
 
 // router.use(auth);
