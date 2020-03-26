@@ -24,12 +24,6 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </ul>
     )
 
-
-
-
-
-
-
     return (
         <div>
             <nav className="navbar bg-dark">
