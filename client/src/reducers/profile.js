@@ -1,4 +1,4 @@
-import { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE } from "../actions/types";
+import { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE, CREATE_PROFILE_ERROR, CREATE_PROFILE } from "../actions/types";
 import { setAlert } from './alert';
 
 const initialState = {
@@ -15,13 +15,14 @@ export default (state = initialState, action) => {
 
     switch (type) {
         case GET_PROFILE:
+        case CREATE_PROFILE:
             return {
                 ...state,
                 profile: payload,
                 loading: false,
             }
         case PROFILE_ERROR:
-            console.log('profile reducer')
+        case CREATE_PROFILE_ERROR:
             return {
                 ...state,
                 profile: null,
