@@ -4,8 +4,12 @@ import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
 import { Link, Redirect } from 'react-router-dom';
+import DashboardActions from './DashboardActions';
+import Experience  from './Experience';
+import Education from './Education';
+import { deleteProfile } from '../../actions/profile';
 
-const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, loading } }) => {
+const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, loading }, deleteProfile, history }) => {
     useEffect(() => {
         getCurrentProfile();
     }, []);
@@ -17,7 +21,11 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
             </p>
             
             {profile !== null ? (
-                <Fragment><h1>has profile</h1></Fragment>
+                <Fragment>
+                    <DashboardActions />
+                    {profile.experience.length ===  0 ? null : (<Experience experience={profile.experience} />)}
+                    {profile.education.length === 0 ? null : (<Education education={profile.education} />)}
+                </Fragment>
             ) : (
                     <Fragment>
                         <p>You have not yet setup a profile, please add some info</p>
@@ -41,4 +49,4 @@ const mapStateToProps = (state) => ({
     profile: state.profile,
 })
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard) 
+export default connect(mapStateToProps, { getCurrentProfile, deleteProfile })(Dashboard) 

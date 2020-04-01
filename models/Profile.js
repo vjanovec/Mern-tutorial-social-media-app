@@ -21,7 +21,7 @@ const ProfileSchema = mongoose.Schema({
     bio: {
         type: String,
     },
-    skils: {
+    skills: {
         type: [String],
     },
     githubusername: {
@@ -34,7 +34,7 @@ const ProfileSchema = mongoose.Schema({
                 required: true,
             },
             company: {
-                type: String,
+                type: String,   
                 required: true,
             },
             location: {

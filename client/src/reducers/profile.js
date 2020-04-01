@@ -1,4 +1,4 @@
-import { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE, CREATE_PROFILE_ERROR, CREATE_PROFILE } from "../actions/types";
+import { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE, UPDATE_PROFILE, GET_PROFILES} from "../actions/types";
 import { setAlert } from './alert';
 
 const initialState = {
@@ -15,14 +15,19 @@ export default (state = initialState, action) => {
 
     switch (type) {
         case GET_PROFILE:
-        case CREATE_PROFILE:
+        case UPDATE_PROFILE:
             return {
                 ...state,
                 profile: payload,
                 loading: false,
             }
+        case GET_PROFILES:
+            return {
+                ...state,
+                profiles: payload,
+                loading: false,
+            }    
         case PROFILE_ERROR:
-        case CREATE_PROFILE_ERROR:
             return {
                 ...state,
                 profile: null,
@@ -36,6 +41,7 @@ export default (state = initialState, action) => {
                 repos: [],
                 loading: false,
             }
+
         default: {
             return state;
         }

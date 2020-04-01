@@ -66,7 +66,7 @@ router.post('/', [ auth, [
         if(githubusername) profileFields.githubusername = githubusername;
         // Build skills arr
         if(skills) {
-            profileFields.skills = skills.split(',').map(skill => skill.trim());
+            profileFields.skills = skills.split(",").map(skill => skill.trim());
         }
 
         // Build social object
@@ -78,6 +78,13 @@ router.post('/', [ auth, [
         if(instagram) profileFields.social.instagram = instagram;
 
         try {
+
+            // Validate user one more time
+            const user = await User.findById(req.user.id);
+            if(!user) {
+                return res.status(400).json({ errors: [{msg: 'User does not exist'}] });
+            }
+
             let profile = await Profile.findOne({ user: req.user.id });
 
             if(profile) {
@@ -171,11 +178,10 @@ router.put('/experience', [
         check('from', 'From date is required').not().isEmpty(),
     ] 
 ], async (req, res) => {    
-    errors = validationResult(req);
-    if(!errors.isEmpty) {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-
     const {
         title,
         company,
@@ -202,7 +208,7 @@ router.put('/experience', [
         await profile.save();
         res.json(profile);
     } catch(err) {
-        console.error(err);
+        //console.error(err);
         res.status(500).send('Server error');
     }
 });
@@ -241,8 +247,8 @@ router.put('/education', [
         check('from', 'From date is required').not().isEmpty(),
     ] 
 ], async (req, res) => {    
-    errors = validationResult(req);
-    if(!errors.isEmpty) {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
